@@ -81,8 +81,7 @@ def test_lmdb_decode_speed(path_to_features, read_count=5000):
     return cnt / elapsed
 
 
-if __name__ == '__main__':
-
+def main(raw_args):
     # set up parser
     parser = argparse.ArgumentParser(description='Convert caffe lmdb to h5 or npy file')
     parser.add_argument('path_to_lmdb', type=str, help='Full path to lmdb database')
@@ -91,7 +90,7 @@ if __name__ == '__main__':
                         help='Number of cores to use, default is the available number of cores')
     parser.add_argument('--verbosity', type=int, default=1000,
                         help='Print every verbosity conversions')
-    args = parser.parse_args()
+    args = parser.parse_args(raw_args)
     # print(args)
 
     # tasks is fed by single sequential reader
@@ -146,3 +145,7 @@ if __name__ == '__main__':
         else:
             save_h5(args.path_to_output, results_sorted)
     print('Done.')
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
